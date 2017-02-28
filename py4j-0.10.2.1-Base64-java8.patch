@@ -1,0 +1,47 @@
+--- a/py4j-java/src/main/java/py4j/Protocol.java	2016-03-12 20:58:42.000000000 +0100
++++ b/py4j-java/src/main/java/py4j/Protocol.java	2016-03-25 19:53:40.557619276 +0100
+@@ -34,6 +34,7 @@
+ import java.lang.reflect.InvocationTargetException;
+ import java.lang.reflect.Proxy;
+ import java.math.BigDecimal;
++import java.util.Base64;
+ 
+ import py4j.reflection.PythonProxyHandler;
+ import py4j.reflection.ReflectionUtil;
+@@ -145,7 +146,7 @@
+ 	 * @return
+ 	 */
+ 	public static String encodeBytes(byte[] bytes) {
+-		return Base64.encodeToString(bytes, false);
++		return Base64.getEncoder().encodeToString(bytes);
+ 	}
+ 
+ 	/**
+@@ -170,7 +171,7 @@
+ 	 * @return The byte array corresponding to this command part.
+ 	 */
+ 	public final static byte[] getBytes(String commandPart) {
+-		return Base64.decode(commandPart.substring(1));
++		return Base64.getDecoder().decode(commandPart.substring(1));
+ 	}
+ 
+ 	/**
+--- a/py4j-java/src/test/java/py4j/ProtocolTest.java	2016-07-10 11:30:42.000000000 +0100
++++ b/py4j-java/src/test/java/py4j/ProtocolTest.java	2016-07-10 11:38:09.651825796 +0100
+@@ -32,6 +32,7 @@
+ import static org.junit.Assert.*;
+ 
+ import java.math.BigDecimal;
++import java.util.Base64;
+ 
+ import org.junit.Test;
+ 
+@@ -50,7 +51,7 @@
+ 	public void testBytes() {
+ 		byte[] bytes = { 1, 100, 127, 0, 60, 15, -128, -1, 14, -55 };
+ 		String bytesString = Protocol.encodeBytes(bytes);
+-		byte[] bytes2 = Base64.decode(bytesString);
++		byte[] bytes2 = Base64.getDecoder().decode(bytesString);
+ 		assertArrayEquals(bytes, bytes2);
+ 
+ 		Gateway g = new Gateway(null);

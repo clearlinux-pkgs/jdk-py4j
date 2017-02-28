@@ -1,6 +1,6 @@
 Name     : jdk-py4j
 Version  : 0.10.2.1
-Release  : 1
+Release  : 2
 URL      : https://github.com/bartdag/py4j/archive/0.10.2.1/py4j-0.10.2.1.tar.gz
 Source0  : https://github.com/bartdag/py4j/archive/0.10.2.1/py4j-0.10.2.1.tar.gz
 Summary  : No detailed summary available
